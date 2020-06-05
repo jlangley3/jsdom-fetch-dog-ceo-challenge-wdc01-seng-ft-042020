@@ -1,7 +1,21 @@
 console.log('%c HI', 'color: firebrick')
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
+const breedUrl = 'https://dog.ceo/api/breeds/list/all'
 
+document.addEventListener("DOMContentLoaded", fetchDogs)
 
+function fetchDogs() {
+    fetch(breedUrl)
+        .then(res => res.json())
+        .then(json => {
+            Object.keys(json.message).forEach(breed => {
+                let li = document.createElement("li")
+                let ul = document.querySelector("#dog-breeds")
+                li.innerText = breed
+                ul.appendChild(li)
+            })
+        })
+}
 
 fetch(imgUrl)
     .then(response => response.json())
@@ -17,3 +31,4 @@ fetch(imgUrl)
             dogImg.appendChild(ul)
         })
     })
+
