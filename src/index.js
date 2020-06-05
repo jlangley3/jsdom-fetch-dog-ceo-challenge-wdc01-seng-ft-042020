@@ -11,6 +11,7 @@ function fetchDogs() {
             Object.keys(json.message).forEach(breed => {
                 let li = document.createElement("li")
                 let ul = document.querySelector("#dog-breeds")
+                li.addEventListener('click', changeColor)
                 li.innerText = breed
                 ul.appendChild(li)
             })
@@ -32,3 +33,8 @@ fetch(imgUrl)
         })
     })
 
+function changeColor (e) {
+    console.log('click')
+    e.target.style.color = 'red'
+    
+}
