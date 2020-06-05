@@ -19,15 +19,15 @@ function breedChange(event) {
 
             })
 
+            let liLast = document.querySelector("#dogs")
+            a.parentNode.removeChild(a)
+            let ul = document.querySelector("#dog-breeds")
             result.forEach(element => {
                 console.log(element);
-                let liLast = document.querySelector("#dogs")
-                let ul = document.querySelectorAll("#dog-breeds")
-                liLast.parentNode.removeChild(liLast)
-                let li = document.createElement("li")
-                li.addEventListener('click', changeColor)
-                li.innerText = element
-                ul.appendChild(li)
+                liLast.innerText = element
+                    // li.addEventListener('click', changeColor)
+                    // li.innerText = element
+                ul.appendChild(liLast)
             });
 
         })
