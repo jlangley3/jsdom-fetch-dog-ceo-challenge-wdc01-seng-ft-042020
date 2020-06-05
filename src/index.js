@@ -18,12 +18,18 @@ function breedChange(event) {
                 return breed[0] === event.target.value
 
             })
-            console.log(result)
-                // let li = document.createElement("li")
-                // let ul = document.querySelector("#dog-breeds")
-                // li.addEventListener('click', changeColor)
-                // li.innerText = breed
-                // ul.appendChild(li)
+
+            result.forEach(element => {
+                console.log(element);
+                let liLast = document.querySelector("#dogs")
+                let ul = document.querySelectorAll("#dog-breeds")
+                liLast.parentNode.removeChild(liLast)
+                let li = document.createElement("li")
+                li.addEventListener('click', changeColor)
+                li.innerText = element
+                ul.appendChild(li)
+            });
+
         })
         // })
         // for (i = 0; i < a.children.length; i++) {
@@ -64,6 +70,7 @@ function fetchDogs() {
         .then(json => {
             Object.keys(json.message).forEach(breed => {
                 let li = document.createElement("li")
+                li.setAttribute("id", "dogs")
                 let ul = document.querySelector("#dog-breeds")
                 li.addEventListener('click', changeColor)
                 li.innerText = breed
