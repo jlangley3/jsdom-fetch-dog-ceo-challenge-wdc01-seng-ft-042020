@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchDogs()
     let breedDown = document.querySelector("#breed-dropdown")
     breedDown.addEventListener("change", breedChange)
+    
 })
 
 
@@ -15,20 +16,34 @@ function breedChange(event) {
         .then(res => res.json())
         .then(json => {
             let result = Object.keys(json.message).filter(breed => {
-                return breed[0] === event.target.value
+                return breed[0] === event.target.value || event.target.value === 'all'
 
             })
 
-            let liLast = document.querySelector("#dogs")
+            let li = document.querySelector("#dogs")
+            a.removeChild(li)
             a.parentNode.removeChild(a)
-            let ul = document.querySelector("#dog-breeds")
-            result.forEach(element => {
-                console.log(element);
-                liLast.innerText = element
-                    // li.addEventListener('click', changeColor)
-                    // li.innerText = element
-                ul.appendChild(liLast)
-            });
+            let ul = document.createElement("ul")
+            ul.setAttribute("id", "dog-breeds")
+            document.body.appendChild(ul)
+
+            if (result === 'all') {
+                fetchDogs()
+
+            } else if (result.length == 0) {
+                li.innerText = 'There are no dogs'
+                ul.appendChild(li)
+
+            } else {
+                result.forEach(element => {
+                    console.log(element);
+                    let liLast = document.createElement('li')
+                    liLast.setAttribute('id', 'dogs')
+                    liLast.innerText = element
+                    liLast.addEventListener('click', changeColor)
+                    ul.appendChild(liLast)
+                });
+            }
 
         })
         // })
@@ -72,8 +87,8 @@ function fetchDogs() {
                 let li = document.createElement("li")
                 li.setAttribute("id", "dogs")
                 let ul = document.querySelector("#dog-breeds")
-                li.addEventListener('click', changeColor)
                 li.innerText = breed
+                li.addEventListener('click', changeColor)
                 ul.appendChild(li)
             })
         })
@@ -96,6 +111,10 @@ fetch(imgUrl)
 
 function changeColor(e) {
     console.log('click')
-    e.target.style.color = 'red'
+    // e.target.style.color = 'red'
+
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    e.target.style.color = "#" + randomColor;
+    color.innerHTML = "#" + randomColor;
 
 }
